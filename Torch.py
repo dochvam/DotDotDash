@@ -5,9 +5,9 @@ class Torch(object):
 	def __init__(self, x, y):
 		self.x = x
 		self.y = y
-		self.health = 100
+		self.health = 50
 		self.maxhealth = 100
-		self.hurt_dist = 100
+		self.hurt_dist = self.health*2
 		self.alive = True
 
 	def draw(self, screen, width = 0, height = 0, do_glow = False):
@@ -39,3 +39,4 @@ class Torch(object):
 		self.health -= damage
 		if self.health <= 0:
 			self.alive = False
+		self.hurt_dist = self.health*2

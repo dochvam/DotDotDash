@@ -62,8 +62,9 @@ class Drone(object):
 				pygame.draw.rect(screen, [225,20,20], pygame.Rect(self.x-5, self.y-7,0.1*self.health,2))
 
 
-class Shot(object):
+class Shot(pygame.sprite.DirtySprite):
 	def __init__(self, x, y, direc):
+		pygame.sprite.DirtySprite.__init__(self)
 		self.x = x
 		self.y = y
 		if direc[0] != 0: self.direction = atan(direc[1]/direc[0])
@@ -83,6 +84,7 @@ class Shot(object):
 		self.counter += 1
 		if self.counter >= self.lifespan:
 			self.remove = False
+		self.dirty = 1
 
 	def draw(self, screen):
 		if self.alive:
@@ -146,6 +148,7 @@ class Boss(object):
 			self.alive = False
 			if len(room.chests) == 0:
 				room.initChest()
+			room.defeated = True
 
 	def shoot(self, ox, oy):
 		self.counter += 1

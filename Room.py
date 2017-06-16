@@ -18,6 +18,8 @@ class Room(object):
 		self.torches = []
 		self.chests = []
 
+		self.defeated = False
+
 	def getDoors(self):
 		return self.doors
 
@@ -33,13 +35,13 @@ class Room(object):
 		return self
 
 	def getDrones(self, width, height):
-		if self.roomType == "Enemy":
+		if self.roomType == "Enemy" and not self.defeated:
 			drone_list = []
 			for i in range(self.numEnemies):
 				drone_list.append(Drone(int(40+random()*(width-80)), int(40+random()*(height-80))))
 			return drone_list
-		elif self.roomType == "Boss":
-			drone_list = [Boss(2)]
+		elif self.roomType == "Boss" and not self.defeated:
+			drone_list = [Boss(1+int(random()*2))]
 			return drone_list
 		return []
 
